@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  @apply bg-white dark:bg-gray-950;
+  font-family: 'Inter', system-ui, sans-serif;
+
+  @media (prefers-color-scheme: dark) {
+    color-scheme: dark;
+  }
+}
+
+/* 自定义样式，适合小朋友的界面 */
+@layer components {
+  .kids-card {
+    @apply rounded-xl border-2 shadow-md transition-all duration-200 hover:shadow-lg;
+  }
+  
+  .kids-button {
+    @apply rounded-full px-4 py-2 font-medium shadow-sm transition-all duration-200 hover:shadow;
+  }
+  
+  .kids-input {
+    @apply rounded-xl border-2 px-4 py-2 focus:outline-none focus:ring-2;
+  }
+}

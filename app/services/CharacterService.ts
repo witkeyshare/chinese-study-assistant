@@ -65,9 +65,17 @@ export class CharacterService {
   async getTopViewHistory() {
     await this.ensureConnection();
     try {
-      const query = `SELECT character,COUNT(*) AS visit_count FROM view_history GROUP BY character ORDER BY visit_count DESC LIMIT 60`;
-      const characterRepository = await this.historyRepository.query(query);
-      return characterRepository.map((item:any) => item.character);
+      // 使用TypeORM的QueryBuilder来构建查询
+      const result = await this.historyRepository
+        .createQueryBuilder("history")
+        .select("history.character", "character")
+        .addSelect("COUNT(*)", "visit_count")
+        .groupBy("history.character")
+        .orderBy("visit_count", "DESC")
+        .limit(60)
+        .getRawMany();
+
+      return result.map(item => item.character);
     } catch (error) {
       console.error('获取浏览历史失败:', error);
       throw error;

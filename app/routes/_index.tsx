@@ -155,7 +155,7 @@ export default function Index() {
                       <button 
                         key={char}
                         onClick={() => handleSimilarClick(char)}
-                        className="w-12 h-12 flex items-center justify-center text-xl border-2 border-pink-200 rounded-lg hover:bg-pink-100 transition-colors shadow-sm"
+                        className="w-12 h-12 flex items-center text-gray-800 justify-center text-xl border-2 border-pink-200 rounded-lg hover:bg-pink-100 transition-colors shadow-sm"
                       >
                         {char}
                       </button>

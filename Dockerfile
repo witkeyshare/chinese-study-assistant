@@ -13,6 +13,9 @@ COPY . .
 # Run the build script
 RUN npm run build
 
+# Remove development dependencies
+RUN npm prune --production
+
 # Stage 2: Production environment
 FROM node:20-alpine
 
@@ -21,10 +24,11 @@ WORKDIR /app
 # Set NODE_ENV to production
 ENV NODE_ENV=production
 
-# Copy package files from build stage and install only production dependencies
+# Copy package.json (needed for npm start potentially)
 COPY --from=build /app/package.json ./package.json
-COPY --from=build /app/package-lock.json* ./package-lock.json*
-RUN npm ci --omit=dev
+
+# Copy installed production dependencies from build stage
+COPY --from=build /app/node_modules ./node_modules
 
 # Copy build artifacts and public directory from build stage
 COPY --from=build /app/build ./build
@@ -34,4 +38,4 @@ COPY --from=build /app/public ./public
 EXPOSE 3000
 
 # Start the application
-CMD ["npm", "start"] 
+CMD ["npm", "start"]

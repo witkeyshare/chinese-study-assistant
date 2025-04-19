@@ -14,7 +14,6 @@ export class CharacterService {
     this.characterRepository = AppDataSource.getRepository(Character);
     this.historyRepository = AppDataSource.getRepository(ViewHistory);
   }
-  
   static async initialize() {
     try {
       if (!AppDataSource.isInitialized) {

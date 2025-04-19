@@ -6,7 +6,7 @@ import { config as dotenv } from 'dotenv';
 
 dotenv();
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = true//process.env.NODE_ENV === 'production';
 
 const ormconfig: DataSourceOptions = {
   type: "postgres",
